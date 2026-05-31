@@ -167,6 +167,18 @@ function percentText(value) {
   return `${fmt(value)}%`;
 }
 
+function valueWithUnitHtml(value, unit) {
+  return `${numHtml(value)} ${unit}`;
+}
+
+function buildKnownData(scenario, items = []) {
+  return [
+    { label: "הקשר", value: scenario.title },
+    { label: "הנתון הנמדד", value: scenario.metric },
+    ...items,
+  ];
+}
+
 function chooseScenario() {
   const scenario = randItem(SCENARIOS);
   const mu = randItem(scenario.meanOptions);
@@ -224,7 +236,11 @@ function makePercentQuestion() {
     unit: "%",
     choices: makeChoices(answer, "%", "percent"),
     text: `מהו האחוז מתוך ${scenario.itemPlural} עם ${scenario.metric} ${side}${numHtml(x)} בהתפלגות של ${scenario.title}?`,
-    data: `ממוצע μ=${numHtml(scenario.mu)}, סטיית תקן σ=${numHtml(scenario.sigma)}.`,
+    knownData: buildKnownData(scenario, [
+      { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
+      { label: "סטיית תקן σ", value: valueWithUnitHtml(scenario.sigma, scenario.unit) },
+      { label: "הסף בשאלה", value: valueWithUnitHtml(x, scenario.unit) },
+    ]),
     hint: `הערך ${numHtml(x)} נמצא ב־Z=${numHtml(z)}. עכשיו סופרים את האחוזים ${areaSide} לקו הזה.`,
     explanation: `Z=${numHtml(z)}, ולכן ${side}${numHtml(x)} הם ${percentHtml(answer)} לפי גרף האחוזים.`,
   };
@@ -246,7 +262,11 @@ function makeZQuestion() {
     tolerance: 0.01,
     inputLabel: "ציון התקן Z",
     text: `כאשר ${scenario.metric} הוא ${numHtml(x)}, מה ציון התקן?`,
-    data: `ממוצע μ=${numHtml(scenario.mu)}, סטיית תקן σ=${numHtml(scenario.sigma)}.`,
+    knownData: buildKnownData(scenario, [
+      { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
+      { label: "סטיית תקן σ", value: valueWithUnitHtml(scenario.sigma, scenario.unit) },
+      { label: "הערך X", value: valueWithUnitHtml(x, scenario.unit) },
+    ]),
     hint: `מציבים בנוסחה: <span class="formula">Z=(X-μ)/σ</span>. קודם בודקים אם ${numHtml(x)} מעל או מתחת לממוצע.`,
     explanation: `<span class="formula">Z=(${fmt(x)}-${fmt(scenario.mu)})/${fmt(scenario.sigma)}=${fmt(z)}</span>.`,
   };
@@ -269,7 +289,11 @@ function makeXQuestion() {
     unit: ` ${scenario.unit}`,
     inputLabel: `${scenario.metric}`,
     text: `כאשר ציון התקן הוא Z=${numHtml(z)}, מה הערך?`,
-    data: `ממוצע μ=${numHtml(scenario.mu)}, סטיית תקן σ=${numHtml(scenario.sigma)}.`,
+    knownData: buildKnownData(scenario, [
+      { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
+      { label: "סטיית תקן σ", value: valueWithUnitHtml(scenario.sigma, scenario.unit) },
+      { label: "ציון תקן Z", value: numHtml(z) },
+    ]),
     hint: `משתמשים בצורה ההפוכה: <span class="formula">X=μ+Z·σ</span>.`,
     explanation: `<span class="formula">X=${fmt(scenario.mu)}+${fmt(z)}·${fmt(scenario.sigma)}=${fmt(answer)}</span>.`,
   };
@@ -296,7 +320,11 @@ function makeMeanQuestion() {
     unit: ` ${scenario.unit}`,
     inputLabel: "הממוצע μ",
     text: `ידוע ש־${percentHtml(percent)} מתוך ${scenario.itemPlural} הם עם ${scenario.metric} ${side}${numHtml(x)}. מה הממוצע?`,
-    data: `סטיית תקן σ=${numHtml(scenario.sigma)}.`,
+    knownData: buildKnownData(scenario, [
+      { label: "סטיית תקן σ", value: valueWithUnitHtml(scenario.sigma, scenario.unit) },
+      { label: "אחוז נתון", value: percentHtml(percent) },
+      { label: "הסף בשאלה", value: valueWithUnitHtml(x, scenario.unit) },
+    ]),
     hint: `האחוז ${percentHtml(percent)} מציב את ${numHtml(x)} בקו Z=${numHtml(z)}. לכן <span class="formula">μ=X−Z·σ</span>.`,
     explanation: `<span class="formula">μ=${fmt(x)}-${fmt(z)}·${fmt(scenario.sigma)}=${fmt(scenario.mu)}</span>.`,
   };
@@ -323,7 +351,11 @@ function makeSigmaQuestion() {
     unit: ` ${scenario.unit}`,
     inputLabel: "סטיית התקן σ",
     text: `ידוע ש־${percentHtml(percent)} מתוך ${scenario.itemPlural} הם עם ${scenario.metric} ${side}${numHtml(x)}. מה סטיית התקן?`,
-    data: `ממוצע μ=${numHtml(scenario.mu)}.`,
+    knownData: buildKnownData(scenario, [
+      { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
+      { label: "אחוז נתון", value: percentHtml(percent) },
+      { label: "הסף בשאלה", value: valueWithUnitHtml(x, scenario.unit) },
+    ]),
     hint: `האחוז קובע ש־Z=${numHtml(z)}. מציבים: <span class="formula">Z=(X-μ)/σ</span> ואז מבודדים את σ.`,
     explanation: `<span class="formula">σ=(${fmt(x)}-${fmt(scenario.mu)})/${fmt(z)}=${fmt(scenario.sigma)}</span>.`,
   };
@@ -352,7 +384,12 @@ function makeCountQuestion() {
     unit: ` ${scenario.populationLabel}`,
     inputLabel: `מספר ${scenario.itemPlural}`,
     text: `כמה מתוך ${numHtml(population)} ${scenario.populationLabel} הם עם ${scenario.metric} ${side}${numHtml(x)}?`,
-    data: `ממוצע μ=${numHtml(scenario.mu)}, סטיית תקן σ=${numHtml(scenario.sigma)}.`,
+    knownData: buildKnownData(scenario, [
+      { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
+      { label: "סטיית תקן σ", value: valueWithUnitHtml(scenario.sigma, scenario.unit) },
+      { label: "גודל הקבוצה", value: `${numHtml(population)} ${scenario.populationLabel}` },
+      { label: "הסף בשאלה", value: valueWithUnitHtml(x, scenario.unit) },
+    ]),
     hint: `קודם מוצאים את האחוז לפי Z=${numHtml(z)}, ואז מחשבים ${percentHtml(percent)} מתוך ${numHtml(population)}.`,
     explanation: `${side}${numHtml(x)} הם ${percentHtml(percent)}. לכן <span class="formula">${fmt(percent)}/100·${population}=${fmt(answer)}</span>.`,
   };
@@ -382,7 +419,7 @@ function render() {
   els.scenarioBadge.textContent = state.question.scenario.badge;
   els.skillBadge.textContent = state.question.stageSkill;
   els.questionText.innerHTML = state.question.text;
-  els.questionData.innerHTML = state.question.data;
+  renderKnownData();
   els.feedbackBox.className = "feedback-box";
   els.feedbackBox.textContent = "בחרו תשובה או הקלידו מספר, ואז בדקו.";
   els.checkButton.classList.remove("hidden");
@@ -391,6 +428,25 @@ function render() {
   renderTabs();
   renderAnswer();
   renderBellGraph();
+}
+
+function renderKnownData() {
+  const items = state.question.knownData || [];
+  els.questionData.innerHTML = `
+    <p class="known-data-title">נתונים ידועים</p>
+    <div class="known-data-grid">
+      ${items
+        .map(
+          (item) => `
+            <div class="known-data-item">
+              <span>${item.label}</span>
+              <strong>${item.value}</strong>
+            </div>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
 }
 
 function renderStats() {

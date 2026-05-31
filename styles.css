@@ -245,16 +245,64 @@ h2 {
 }
 
 #questionText {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   font-size: clamp(1.25rem, 2.4vw, 1.72rem);
   line-height: 1.35;
 }
 
-.data-line {
-  margin-bottom: 18px;
+.question-title {
+  margin-bottom: 5px;
+  color: var(--teal-dark);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.known-data {
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8faf8;
+  padding: 12px;
+}
+
+.known-data-title {
+  margin-bottom: 9px;
+  color: var(--teal-dark);
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.known-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.known-data-item {
+  min-width: 0;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e4ebe7;
+  padding: 8px 9px;
+}
+
+.known-data-item span,
+.known-data-item strong {
+  display: block;
+}
+
+.known-data-item span {
+  margin-bottom: 3px;
   color: var(--muted);
-  font-weight: 700;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.known-data-item strong {
+  color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .answer-area {
@@ -405,16 +453,114 @@ h2 {
 @media (max-width: 620px) {
   .app-shell {
     width: min(100% - 18px, 1180px);
-    padding-top: 10px;
+    padding-top: 6px;
+  }
+
+  .topbar {
+    gap: 8px;
+    padding: 7px 0 8px;
+  }
+
+  h1 {
+    font-size: 1.86rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 3px;
+    font-size: 0.78rem;
+  }
+
+  .score-strip {
+    gap: 5px;
+  }
+
+  .score-strip span {
+    min-width: 0;
+    padding: 7px 6px;
+    font-size: 0.78rem;
+  }
+
+  .score-strip strong {
+    font-size: 1.08rem;
   }
 
   .stage-tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+    margin: 7px 0 10px;
+  }
+
+  .stage-tab {
+    min-height: 42px;
+    padding-inline: 5px;
+    font-size: 0.75rem;
+    line-height: 1.15;
   }
 
   .question-panel,
   .stage-heading {
-    padding: 16px;
+    padding: 14px;
+  }
+
+  .question-meta {
+    margin-bottom: 8px;
+  }
+
+  #questionText {
+    font-size: 1.13rem;
+    line-height: 1.32;
+    margin-bottom: 10px;
+  }
+
+  .question-title {
+    margin-bottom: 4px;
+    font-size: 0.78rem;
+  }
+
+  .known-data {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .known-data-title {
+    margin-bottom: 6px;
+    font-size: 0.82rem;
+  }
+
+  .known-data-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .known-data-item {
+    padding: 6px;
+  }
+
+  .known-data-item span {
+    font-size: 0.66rem;
+    margin-bottom: 2px;
+  }
+
+  .known-data-item strong {
+    font-size: 0.78rem;
+  }
+
+  .answer-area {
+    min-height: auto;
+    gap: 7px;
+  }
+
+  .choice-grid,
+  .action-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .choice-button,
+  .primary-button,
+  .secondary-button {
+    min-height: 43px;
+    padding: 8px 10px;
   }
 
   .bell-graph {
@@ -426,12 +572,10 @@ h2 {
     padding-inline: 16px;
   }
 
-  .choice-grid,
-  .action-row {
-    grid-template-columns: 1fr;
-  }
-
-  .score-strip span {
-    min-width: 88px;
+  .feedback-box {
+    min-height: 62px;
+    margin-top: 10px;
+    padding: 10px 11px;
+    font-size: 0.9rem;
   }
 }
