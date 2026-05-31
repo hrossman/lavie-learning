@@ -179,6 +179,10 @@ function buildKnownData(scenario, items = []) {
   ];
 }
 
+function normalDistributionIntro(scenario) {
+  return `הנתונים של ${scenario.title} מתפלגים נורמלית לפי ${scenario.metric}.`;
+}
+
 function chooseScenario() {
   const scenario = randItem(SCENARIOS);
   const mu = randItem(scenario.meanOptions);
@@ -235,6 +239,7 @@ function makePercentQuestion() {
     tolerance: 0.01,
     unit: "%",
     choices: makeChoices(answer, "%", "percent"),
+    intro: normalDistributionIntro(scenario),
     text: `מהו האחוז מתוך ${scenario.itemPlural} עם ${scenario.metric} ${side}${numHtml(x)} בהתפלגות של ${scenario.title}?`,
     knownData: buildKnownData(scenario, [
       { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
@@ -261,6 +266,7 @@ function makeZQuestion() {
     answer: z,
     tolerance: 0.01,
     inputLabel: "ציון התקן Z",
+    intro: normalDistributionIntro(scenario),
     text: `כאשר ${scenario.metric} הוא ${numHtml(x)}, מה ציון התקן?`,
     knownData: buildKnownData(scenario, [
       { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
@@ -288,6 +294,7 @@ function makeXQuestion() {
     tolerance: 0.05,
     unit: ` ${scenario.unit}`,
     inputLabel: `${scenario.metric}`,
+    intro: normalDistributionIntro(scenario),
     text: `כאשר ציון התקן הוא Z=${numHtml(z)}, מה הערך?`,
     knownData: buildKnownData(scenario, [
       { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
@@ -319,6 +326,7 @@ function makeMeanQuestion() {
     tolerance: 0.05,
     unit: ` ${scenario.unit}`,
     inputLabel: "הממוצע μ",
+    intro: normalDistributionIntro(scenario),
     text: `ידוע ש־${percentHtml(percent)} מתוך ${scenario.itemPlural} הם עם ${scenario.metric} ${side}${numHtml(x)}. מה הממוצע?`,
     knownData: buildKnownData(scenario, [
       { label: "סטיית תקן σ", value: valueWithUnitHtml(scenario.sigma, scenario.unit) },
@@ -350,6 +358,7 @@ function makeSigmaQuestion() {
     tolerance: 0.05,
     unit: ` ${scenario.unit}`,
     inputLabel: "סטיית התקן σ",
+    intro: normalDistributionIntro(scenario),
     text: `ידוע ש־${percentHtml(percent)} מתוך ${scenario.itemPlural} הם עם ${scenario.metric} ${side}${numHtml(x)}. מה סטיית התקן?`,
     knownData: buildKnownData(scenario, [
       { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
@@ -383,6 +392,7 @@ function makeCountQuestion() {
     tolerance: 0.05,
     unit: ` ${scenario.populationLabel}`,
     inputLabel: `מספר ${scenario.itemPlural}`,
+    intro: normalDistributionIntro(scenario),
     text: `כמה מתוך ${numHtml(population)} ${scenario.populationLabel} הם עם ${scenario.metric} ${side}${numHtml(x)}?`,
     knownData: buildKnownData(scenario, [
       { label: "ממוצע μ", value: valueWithUnitHtml(scenario.mu, scenario.unit) },
@@ -433,6 +443,7 @@ function render() {
 function renderKnownData() {
   const items = state.question.knownData || [];
   els.questionData.innerHTML = `
+    <p class="known-data-intro">${state.question.intro}</p>
     <p class="known-data-title">נתונים ידועים</p>
     <div class="known-data-grid">
       ${items
