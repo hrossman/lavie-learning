@@ -56,6 +56,21 @@ button {
   padding: 18px 0 16px;
 }
 
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.brand-visual {
+  width: clamp(86px, 13vw, 150px);
+  aspect-ratio: 18 / 11;
+  border-radius: 8px;
+  box-shadow: 0 12px 26px rgba(15, 118, 110, 0.18);
+  object-fit: cover;
+}
+
 .eyebrow {
   margin: 0 0 6px;
   color: var(--teal-dark);
@@ -111,6 +126,10 @@ h2 {
 }
 
 .stage-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   min-height: 48px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -145,7 +164,23 @@ h2 {
 }
 
 .question-panel {
+  position: relative;
+  overflow: hidden;
   padding: 20px;
+}
+
+.question-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 14%, rgba(245, 182, 63, 0.22), transparent 76px),
+    linear-gradient(90deg, transparent 0 48%, rgba(15, 118, 110, 0.05) 48% 52%, transparent 52% 100%);
+}
+
+.question-panel > * {
+  position: relative;
 }
 
 .stage-heading {
@@ -242,6 +277,16 @@ h2 {
   color: var(--teal-dark);
   font-size: 0.84rem;
   font-weight: 800;
+}
+
+.question-meta span:first-child::before {
+  content: "⚽";
+  margin-left: 5px;
+}
+
+.question-meta span:last-child::before {
+  content: "⭐";
+  margin-left: 5px;
 }
 
 #questionText {
@@ -408,6 +453,10 @@ h2 {
   color: var(--teal-dark);
 }
 
+.feedback-box.correct::before {
+  content: "🏆 ";
+}
+
 .feedback-box.wrong {
   background: var(--coral-soft);
   color: #853020;
@@ -416,6 +465,10 @@ h2 {
 .feedback-box.hint {
   background: var(--amber-soft);
   color: #77510a;
+}
+
+.feedback-box.hint::before {
+  content: "💡 ";
 }
 
 .formula {
@@ -461,6 +514,17 @@ h2 {
     padding: 7px 0 8px;
   }
 
+  .brand-lockup {
+    width: 100%;
+    justify-content: center;
+    gap: 9px;
+  }
+
+  .brand-visual {
+    width: 72px;
+    flex: 0 0 auto;
+  }
+
   h1 {
     font-size: 1.86rem;
   }
@@ -495,6 +559,8 @@ h2 {
     padding-inline: 5px;
     font-size: 0.75rem;
     line-height: 1.15;
+    gap: 3px;
+    flex-direction: column;
   }
 
   .question-panel,

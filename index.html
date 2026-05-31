@@ -8,14 +8,17 @@
       content="משחק כדורגל בעברית לתרגול התפלגות נורמלית, ציון תקן, אחוזים וערכים על עקומת הפעמון."
     />
     <title>אליפות הפעמון</title>
-    <link rel="stylesheet" href="styles.css?v=20260531-2" />
+    <link rel="stylesheet" href="styles.css?v=20260531-3" />
   </head>
   <body>
     <main class="app-shell">
       <section class="topbar" aria-label="מצב המשחק">
-        <div>
-          <p class="eyebrow">כדורגל וסטטיסטיקה</p>
-          <h1>אליפות הפעמון</h1>
+        <div class="brand-lockup">
+          <img class="brand-visual" src="assets/soccer-stadium.svg" alt="אצטדיון כדורגל עם גביע וכדור" />
+          <div>
+            <p class="eyebrow">כדורגל וסטטיסטיקה</p>
+            <h1>אליפות הפעמון</h1>
+          </div>
         </div>
         <div class="score-strip" aria-live="polite">
           <span><strong id="scoreValue">0</strong> נקודות</span>
@@ -25,10 +28,10 @@
       </section>
 
       <nav class="stage-tabs" aria-label="בחירת שלב">
-        <button class="stage-tab active" type="button" data-stage="map">מפת הפעמון</button>
-        <button class="stage-tab" type="button" data-stage="z">מכונת Z</button>
-        <button class="stage-tab" type="button" data-stage="x">מציאת נתון</button>
-        <button class="stage-tab" type="button" data-stage="boss">גמר האלופות</button>
+        <button class="stage-tab active" type="button" data-stage="map"><span aria-hidden="true">⚽</span> מפת הפעמון</button>
+        <button class="stage-tab" type="button" data-stage="z"><span aria-hidden="true">🎯</span> מכונת Z</button>
+        <button class="stage-tab" type="button" data-stage="x"><span aria-hidden="true">📊</span> מציאת נתון</button>
+        <button class="stage-tab" type="button" data-stage="boss"><span aria-hidden="true">🏆</span> גמר האלופות</button>
       </nav>
 
       <section class="game-layout">
@@ -70,6 +73,6 @@
       </section>
     </main>
 
-    <script src="app.js?v=20260531-2"></script>
+    <script src="app.js?v=20260531-3"></script>
   </body>
 </html>

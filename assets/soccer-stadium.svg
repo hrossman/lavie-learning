@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-labelledby="title desc">
+  <title id="title">אצטדיון כדורגל</title>
+  <desc id="desc">איור צבעוני של אצטדיון, שער, כדור וגביע</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#9ed8e6"/>
+      <stop offset="1" stop-color="#edf7f2"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#57b26f"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="220" rx="24" fill="url(#sky)"/>
+  <path d="M0 89c44-25 88-37 133-35 43 1 79 17 116 17 40 0 75-12 111-32v82H0z" fill="#2e6f9e" opacity=".28"/>
+  <path d="M0 122h360v98H0z" fill="url(#grass)"/>
+  <path d="M28 197c36-31 88-48 152-48s116 17 152 48" fill="none" stroke="#dff2ec" stroke-width="4" opacity=".85"/>
+  <path d="M73 193h214" stroke="#dff2ec" stroke-width="4" opacity=".8"/>
+  <path d="M111 116h138v69H111z" fill="none" stroke="#fff" stroke-width="6"/>
+  <path d="M126 132h108v53H126z" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>
+  <path d="M138 43h84l-12 48h-60z" fill="#f5b63f"/>
+  <path d="M153 91h54v15h-54z" fill="#c7821d"/>
+  <path d="M144 106h72v14h-72z" fill="#8f611c"/>
+  <path d="M138 51c-20 0-29 13-26 28 3 13 14 22 31 21" fill="none" stroke="#f5b63f" stroke-width="9"/>
+  <path d="M222 51c20 0 29 13 26 28-3 13-14 22-31 21" fill="none" stroke="#f5b63f" stroke-width="9"/>
+  <circle cx="273" cy="151" r="27" fill="#fff"/>
+  <path d="M273 124l10 8-4 13h-12l-4-13z" fill="#172026"/>
+  <path d="M247 145l16-13M299 145l-16-13M257 171l10-26M289 171l-10-26" stroke="#172026" stroke-width="5" stroke-linecap="round"/>
+  <path d="M52 68h54M254 68h54" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".9"/>
+  <path d="M53 91h43M264 91h43" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".68"/>
+  <circle cx="80" cy="45" r="8" fill="#fff6d6"/>
+  <circle cx="302" cy="39" r="6" fill="#fff6d6"/>
+</svg>
